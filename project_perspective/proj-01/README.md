@@ -4,7 +4,7 @@ Simple Video Cover Extractor for Bilibili
 
 > 简易B站封面提取器  
 
-> 由于这是我们的第一节，仍然会杂一些比较基础的东西。熟悉Python的朋友们可以继续量子速读了。
+> 由于这是我们的第一节，仍然会杂一些比较基础的东西。
 
 ## 背景
 
@@ -55,12 +55,26 @@ Simple Video Cover Extractor for Bilibili
 在VSCode中打开一个新的终端
 > 按 `Ctrl+Shift+`\` 启动一个新的终端，或者按 `Ctrl+`\` 切换到已打开的终端。
 
+安装请求库`requests`
+
 ```powershell
-pip install requests types-requests lxml
+pip install requests types-requests
 ```
 > 安装`types-requests`是为了支持`mypy`静态检查
 
-等待完成后，若无报错即可进入下一步。
+安装XML解析库` lxml`
+
+```powershell
+pip install lxml
+```
+
+等待完成后，将已安装的包固定为`requirements.txt`
+
+```powershell
+pip freeze > ./requirements.txt
+```
+
+> 这样一来下次安装时就可以使用`-r`参数一键搞定了。
 
 ## 开始喵
 
@@ -92,14 +106,49 @@ pip install requests types-requests lxml
 
 现在我们拿到了封面URL，可以反过来用URL来定位它在网页中的位置了。
 
-按下`F12`打开开发者选项，找到`元素`选项卡，`Ctrl+F`打开查找选项再一粘贴，欸怎么没有呢
+按下`F12`打开开发者选项，找到`元素`选项卡，`Ctrl+F`打开查找选项再一粘贴搜索，欸怎么没有呢
 
 将搜索范围缩小到后半段的图片哈希值，成功找到元素。
 
 ![Find Element](./images/find_element.png)
 
-记下这个元素的`XPath`备用，之后将会通过`lxml`库解析网页。
+如果之后要通过`lxml`库解析网页的话，现在就记下这个元素的`XPath`备用。
 
-> 注意网页的结构具有时效性，因为你不知道它多久会再改版，这会使你得到的`XPath`之类的信息失效。
+> 注意网页的结构具有时效性，因为你不知道它多久会再改版，页面结构的改变会使你得到的`XPath`之类的记录元素位置的信息失效。
 >
-> 按理说这里是应该借助B站的API的，但是现在B站的很多API都有加密，所以暂时留到以后再说。
+> 因此更理想的方法一般是找到网页的API，直接请求API拿到信息。不过现在B站的很多API都有加密，所以暂时先留到以后再说，本节我们先做这个。
+
+### 写！
+
+新建一个py文件，就叫`main.py`好了。
+
+我们将要实现一个函数，这个函数接收视频的URL，返回视频封面的URL。大概长这个样子。
+
+```python
+def get_video_cover(url: str) -> str:
+    pass
+```
+
+基础语法参见[补注](./notes.md#关于基础语法)或者另一组写的文档，或者搜索引擎启动
+
+实践流程见[notebook](./example.ipynb)
+
+### 优化！
+
+我们已经在[notebook](./example.ipynb)编写了一遍最简单的代码。接下来我们将它封装为函数。
+
+完整代码见source
+
+## 结束了喵！
+
+现在程序还有一些地方值得改进，尝试自己解决吧！
+- 程序不会检查用户的输入，这意味着它会尝试请求任何用户输入的东西，甚至不管它是不是URL。
+  > Hint: 尝试提取输入中的AV号或BV号，拼接成网页URL后再拿去做请求。
+- 程序只是打印出了封面URL，却没有将它自动下载下来。为它加上这个功能吧！
+- （续）难道下载的文件的名字要叫那一长串哈希字符串吗？尝试获取视频的标题，然后将它当作下载的封面的文件名吧！
+
+
+
+以及，去尝试通过这种方式获取更多网页中的信息吧！
+
+> 注意请勿违反国家法律法规，滥用造成的任何后果都与我们无关。

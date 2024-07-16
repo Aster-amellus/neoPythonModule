@@ -54,8 +54,8 @@ py启动器通过环境变量和注册表等方式来找到Python，因此不建
 6
 >>> 2**16
 65536
->>> '我是斯卡蒂小姐的狗'
-'我是斯卡蒂小姐的狗'
+>>> print("Hello World")
+Hello World
 ```
 
 另一个交互式Python可以使用`pipx`安装`ipython`包后通过命令行`ipython`启动
@@ -73,7 +73,7 @@ py启动器通过环境变量和注册表等方式来找到Python，因此不建
 
 ## 关于某些VSCode扩展的依赖
 
-在我进行实践时，在正文中提到的扩展中，似乎只有`jupyter`和`mypy`需要额外自行安装工具。不过还是建议安装全面一点就是了。
+在我进行实践时，在正文中提到的扩展中，似乎只有`jupyter`和`mypy`需要额外自行安装工具。不过还是建议再安装全面一点就是了。
 
 对于安装这些工具，我个人使用的是`pipx`。下面是流程。
 
@@ -121,6 +121,8 @@ pip uninstall -r requirements.txt
 
 像这样可以一行指令安装多个包 ~~，但是不能像这样卸载啊到底是为什么呢（）~~
 
+> 请根据需要做修改
+
 ```powershell
 pipx install black flake8 pylint mypy isort
 ```
@@ -163,9 +165,9 @@ Python中有些包会包含一些可执行文件（命令行工具包）。
 
 啊，如果你能容忍程序发生各种各样的编码造成的问题的话，中文也不错噢ww
 
-这C语言家族编程中更为重要，试试便知（）  
+这在C语言家族编程中更为重要，试试便知（）  
 
-另一个例子是，Steam也只能安装在这样的文件夹中。
+另一个例子是，[Steam](https://s.team)也只能安装在这样的文件夹中。
 
 ![Crashed Steam](./images/steam_not_ascii_path.png)  
 

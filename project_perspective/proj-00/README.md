@@ -4,9 +4,24 @@ Hell Word (x)
 
 嗯作为学习一门编程语言的保留节目，我们先来写一写这个罢。  
 
-在本节中，主要讲解除虚拟环境外的环境配置。
+在本节中，主要讲除虚拟环境外的环境配置。
 
-如果已经对Python比较熟悉，则建议跳过或者量子速读。
+<html>
+   <style>
+      .warning-box {
+         border: 2px solid #ffcc00;
+         background-color: #fff3cd;
+         color: #856404;
+         padding: 15px;
+         border-radius: 5px;
+         font-size: 16px;
+      }
+   </style>
+   <div class="warning-box">
+      <strong>WARNING</strong><br /> 
+      此文档中的信息和示例并不适用于所有情况。尽管我们会尽力确保内容的准确性，但我们不对任何错误或遗漏负责，亦不对因使用本指南而导致的任何损失或损害承担责任。在实际应用中，请根据自身情况调整代码并参考官方文档或其他权威资源。使用此文档即表示您同意自行承担风险。<br />
+   </div>
+</html>
 
 ## 在开始之前
 
@@ -14,19 +29,25 @@ Hell Word (x)
 
 在此教程中，如果未做额外说明，默认使用以下配置：
 
-- Python 3.11
-- VSCode
+- [Python](https://www.python.org/) 3.11
+- [VSCode](https://code.visualstudio.com/)
 - Windows 10 及以上
 
-> 这意味着你如果额外使用[Conda](https://conda.io/)之类的软件包管理系统，或者[PyCharm](https://www.jetbrains.com/zh-cn/pycharm/)之类的IDE，又或者版本过低的Python的话，此教程中的内容可能会不再适用。  
+> 这意味着你如果使用[Conda](https://conda.io/)之类的软件包管理系统，或者[PyCharm](https://www.jetbrains.com/zh-cn/pycharm/)之类的IDE，又或者版本过低的Python的话，此教程中的内容可能会不再适用。
 >
 > 至于操作系统，此教程可能会偶尔拐一句Linux，大部分未说明的情况下则还是Windows。不过在配置完毕环境之后，步骤还是会大致通用。
 
 以上。总之如果使用和此教程不同的配置，则可能会出现未预料的问题，需要你自行解决。
 
+此外，此文档可能需要一些计算机基础（甚至可以说是常识），不过就算没有也可以启动[搜](http://google.com/)[索](https://www.bing.com/)[引](https://duckduckgo.com/)[擎](https://yandex.com/)或[A](https://chatgpt.com/)[I](https://kimi.moonshot.cn/)来临时补足知识！
+
+以及这是[官方文档](https://docs.python.org/zh-cn/3/tutorial/index.html)，如果我描述有偏差请以它为准！
+
 嗯大概就是这样。准备好了？那就继续读罢。
 
 ### Python的安装
+
+噢差点忘了！还有[补注](./notes.md)可以看喵！建议配合着一起食用！
 
 #### 下载安装包
 
@@ -108,6 +129,8 @@ Hell Word (x)
 
 完成。顺手移除掉路径长度限制。
 
+> `移除路径长度限制`是选做，作用是字面意思，取决于你
+
 ![Install Complete](./images/install_step_complete.png)
 
 #### 检查安装
@@ -132,7 +155,7 @@ Hell Word (x)
 
 只要能在任意位置的终端直接调用py启动器，或者python解释器，那**最基本的**Python扩展就是即装即用的。
 
-> 比如像 `Jupyter`、`Mypy` 之类的需要额外配下环境
+> 像 `Jupyter`、`Mypy` 之类的需要额外[配下环境](./notes.md#关于某些vscode扩展的依赖)
 
 安装完中文语言包之后就可以愉快地逛扩展商店了。  
 
@@ -140,25 +163,27 @@ Hell Word (x)
 
 - [x] Python
   
-  > 核心扩展，下面俩都是它的依赖项
+  > 核心扩展，下面俩都是它的依赖项，会自动安装。
 - [x] Python Debugger
 - [x] Pylance
 - [ ] Black Formatter
-  
-  > 格式化工具
+  > 强大，但是稍显「固执」的格式化工具
 - [ ] Pylint
-  
-  > 静态分析工具
+  > 广泛使用且备受推崇的代码静态分析工具
 - [ ] Mypy
-  
-  > 静态类型检查器
+  > 广泛使用且备受推崇的静态类型检查器
 - [ ] Jupyter
-  
   > 是扩展包，含有多个扩展，提供Jupyter支持
+
+> Code Runner?
+>
+> 很遗憾，尽管它确实是一个强大的用于快速运行程序的扩展，但它与特定语言的耦合性还是较差。比如对于Python来说，它就没有办法做到逐行调试。总之这里并不建议使用 Code Runner。
+>
+> ~~你猜它为什么只是Runner（x）~~
 
 ## 开始喵
 
-总之先创一个**纯英文路径**的文件夹来当作项目文件夹罢。
+总之先创一个[**纯英文路径**](./notes.md#为什么路径要纯英文)的文件夹来当作项目文件夹罢。
 
 > 为什么要有项目文件夹？
 >
@@ -176,14 +201,14 @@ print("Hello World!")
 
 没错这就是全部 ~~，似乎有些过于简单了~~，毕竟这一节主要讲的是配置环境嘛。
 
-点击 `运行`-`启动调试`，调试器选择`Python Debugger`，配置选择`Python文件`，稍等一会儿即可在窗口下部自动展开的终端中看到输出。
+点击 `运行`-`启动调试`（快捷键`F5`），调试器选择`Python Debugger`，配置选择`Python文件`，稍等一会儿即可在窗口下部自动展开的终端中看到输出。
 
 由于这个「项目」实在是过于简单，直接`以非调试模式运行`也不会有什么不妥。
 
 那么恭喜，你成功完成了Proj-00。继续前进吧！（
 > 听上去怪怪的（逃
 
-噢差点忘了！还有[补注](./notes.md)可以看喵！
-
-此外还建议自己探索一下Python，毕竟学这玩意最重要的就是实践了喵
+此外建议自己探索一下Python，毕竟学这玩意最重要的就是实践了喵
 > 特别是交互式，能获得即时的反馈真的很方便！
+
+记得看看[补注](./notes.md)w
