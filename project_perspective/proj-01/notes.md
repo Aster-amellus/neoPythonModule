@@ -44,7 +44,9 @@ python -m venv ./.venv
 
 ## 关于基础语法
 
-> 仅尝试讲解正文中使用到的
+> 这里仅尝试讲解正文中使用到的。
+>
+> 快去看[官方文档](https://docs.python.org/zh-cn/3/reference/index.html)
 
 > *Python很容易入门，语法限制也很少。但这不意味着它很简单，更不意味着它很随便。*
 >
@@ -121,6 +123,8 @@ def join(ss : list[str]) -> str:
 
 ### 异常
 
+[官方文档](https://docs.python.org/zh-cn/3/reference/compound_stmts.html#the-try-statement)
+
 #### 异常捕获
 
 完全体的异常处理大概像这样：
@@ -168,4 +172,80 @@ raise RuntimeError("A runtime error.")
 
 `raise ... from ...`可以从一个已有的异常实例抛出一个新异常，原有异常会被保存在新异常的`__cause__`属性中。常用在`except`块下。
 
+### 变量作用域与生命周期
 
+Python中的局部变量的作用域是它直接所在的函数，全局变量的则是它所在的模块。
+
+在一个变量超出它的作用域，且它的引用计数变为`0`时，它就会被删除。
+
+> 对于循环引用，Python的垃圾回收器负责清理它们。可以通过调用`gc.collect()`来手动执行垃圾回收。
+
+> Python没有像C/C++或Java那样的块级作用域(Block Scope)，在控制结构 (`if`/`while`/`match`/`for`/`...`) 中声明的变量在控制结构之外依然可以访问，只要是在相同的函数或全局作用域中。
+
+~~来点C语言笑话：~~
+```c
+void just_a_test(void){
+    // 我 有 异 域 症
+    {int i;}
+    {i = 0;}
+}
+```
+
+### 引用与拷贝
+
+Python中的**所有数据都是对象**。变量名实际上是指向这些对象的引用。当你赋值一个变量时，你只是将这个变量名绑定到某个对象上，并不复制对象本身。
+
+```python
+>>> a = [1, 2, 3]
+>>> a
+[1, 2, 3]
+>>> b = a
+>>> b.append(4)
+>>> a
+[1, 2, 3, 4]
+```
+
+> 要复制对象，可使用`copy`库中的`copy()`和`deepcopy()`函数，或某些对象内置的`copy()`方法
+>
+> - `copy()`: 浅拷贝，仅复制顶层结构，产生的新对象内层仍然共享。
+> - `deepcopy()`: 深拷贝，复制整个对象，产生的新对象完全独立
+
+Python中的对象分为可变和（e.g.列表/字典/集合）不可变（e.g.整数/字符串/元组）两种。
+
+对于不可变的对象，对它做修改或赋值会在原地生成一个新的对象，再将这个对象绑定到变量上。这就是数字/字符串变量之间进行赋值看起来像拷贝的原因。
+
+```python
+>>> a = 1
+>>> b = a
+>>> b = 2
+>>> a
+1
+>>> b
+2
+```
+
+> 常见的不可变对象包括：
+> - 整数`int`
+> - 浮点数`float`
+> - 字符串`str`
+> - 元组`tuple`
+> - 布尔值`bool`
+> - 字节串`bytes`
+> - 不可变集合`frozenset`
+>
+> 详见[官方文档](https://docs.python.org/zh-cn/3/reference/datamodel.html)
+
+### with语句
+
+[官方文档](https://docs.python.org/zh-cn/3/reference/compound_stmts.html#with)
+
+对于很多对外部资源有引用的对象，可以使用`with`来进行上下文管理。
+
+离开`with`语句块时，对象的`close()`方法会被自动调用。
+
+```python
+with open("./result.txt", "w+", encoding="utf-8") as fp:
+    fp.write("Pretending to be data")
+```
+
+> `requests`中的请求也可以用噢，看看[本节的项目代码](./source.py)？
