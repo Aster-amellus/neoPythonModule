@@ -26,9 +26,9 @@ Hell Word (x)
 
 以上。总之如果使用和此教程不同的配置，则可能会出现未预料的问题，需要你自行解决。
 
-此外，此文档可能需要一些计算机基础（甚至可以说是常识），不过就算没有也可以启动[搜](http://google.com/)[索](https://www.bing.com/)[引](https://duckduckgo.com/)[擎](https://yandex.com/)或[A](https://chatgpt.com/)[I](https://kimi.moonshot.cn/)来临时补足知识！
+此外，此文档可能需要一些计算机基础（甚至可以说是常识），不过就算没有也可以启动[搜](https://www.google.com/)[索](https://www.bing.com/)[引](https://duckduckgo.com/)[擎](https://yandex.com/)或[A](https://chatgpt.com/)[I](https://kimi.moonshot.cn/)来临时补足知识！
 
-以及这是[官方文档](https://docs.python.org/zh-cn/3/tutorial/index.html)，如果我描述有偏差请以它为准！
+以及这是[官方文档](https://docs.python.org/zh-cn/3/tutorial/index.html)，如果此文档描述有偏差请以它为准！
 
 嗯大概就是这样。准备好了？那就继续读罢。
 
