@@ -99,6 +99,8 @@ yysy，Python官方的文档怎么着都比我写得好罢，快去看。
 
 ### 函数
 
+#### 函数的定义
+
 使用`def`或者`lambda`定义，后者叫做匿名函数。
 
 嗯你问函数是什么…… ~~函数它就是函数啊~~
@@ -109,19 +111,61 @@ Python中的函数是**封装**了代码块的**对象**。使用它可以复用
 
 一个典型的函数大概长这样：
 ```python
-#      参数  参数类型标注（可选）
+#   形式参数  参数类型标注（可选）
 #        vv vvvvvvvvvvv
 def join(ss : list[str]) -> str:
 #   ^^^^---------------- ^^^^^^
-#  函数名    参数列表    返回值类型标注（可选）
+#  函数名    形式参数列表    返回值类型标注（可选）
     return "".join(ss)
 ```
+
+> 关于形参与实参
+>
+> 形参是函数在定义的时候写好的参数，实参是函数在被实际调用时传入的参数
 
 > 为什么要做类型标注(Type Hints)？
 >
 > 你可能觉得Python是一种动态类型语言，类型标注似乎没什么用。但实际上，类型标注有很多好处。除了提升代码的可维护性和可读性，以及便于生成文档之外，在面对稍微复杂一些的代码时，单靠IDE进行类型推导会显得有些吃力。编写代码时顺手加上类型标注，可以帮助IDE进行自动补全和错误检测等工作。
 >
 > 不过最终写不写还是取决于你就是了。
+
+## 关于默认参数
+
+**不要将默认参数设定为可变对象**。作为替代，可以将默认参数设定为`None`，并在函数内部进行处理。
+
+因为函数的默认参数只会在定义时被计算一次，后续每次调用时它们都会被共享。如果默认参数被修改，这些修改会影响到后续的函数调用。它在默认参数被实参覆盖时不会有问题，但在默认参数留空时便会出现意料外的情况。
+
+来看例子。
+
+```python
+>>> def append_to_list(value, my_list=[]):
+...     my_list.append(value)
+...     return my_list
+...
+>>> print(append_to_list(1))
+[1]
+>>> print(append_to_list(2))
+[1, 2]
+>>> print(append_to_list(3))
+[1, 2, 3]
+```
+
+替换为使用`None`：
+
+```python
+>>> def append_to_list(value, my_list=None):
+...     if my_list is None:
+...         my_list = []
+...     my_list.append(value)
+...     return my_list
+...
+>>> print(append_to_list(1))
+[1]
+>>> print(append_to_list(2))
+[2]
+>>> print(append_to_list(3))
+[3]
+```
 
 ### 异常
 
@@ -182,7 +226,7 @@ Python中的局部变量的作用域是它直接所在的函数，全局变量�
 
 > 对于循环引用，Python的垃圾回收器负责清理它们。可以通过调用`gc.collect()`来手动执行垃圾回收。
 
-> Python没有像C/C++或Java那样的块级作用域(Block Scope)，在控制结构 (`if`/`while`/`match`/`for`/`...`) 中声明的变量在控制结构之外依然可以访问，只要是在相同的函数或全局作用域中。
+> Python没有像C/C++或Java那样的块级作用域(Block Scope)，在控制结构 (`if`/`while`/`match`/`for`/ ...) 中声明的变量在控制结构之外依然可以访问，只要是在相同的函数或全局作用域中。
 
 ~~来点C语言笑话：~~
 ```c
@@ -233,7 +277,7 @@ Python中的对象分为可变和（e.g.列表/字典/集合）不可变（e.g.�
 > - 元组`tuple`
 > - 布尔值`bool`
 > - 字节串`bytes`
-> - 不可变集合`frozenset`
+> - 冻结集合`frozenset`
 >
 > 详见[官方文档](https://docs.python.org/zh-cn/3/reference/datamodel.html)
 
@@ -241,9 +285,9 @@ Python中的对象分为可变和（e.g.列表/字典/集合）不可变（e.g.�
 
 [官方文档](https://docs.python.org/zh-cn/3/reference/compound_stmts.html#with)
 
-对于很多对外部资源有引用的对象，可以使用`with`来进行上下文管理。
+对于带有上下文管理器的对象，可以使用`with`来进行上下文管理。
 
-离开`with`语句块时，对象的`close()`方法会被自动调用。
+离开`with`语句块时，对象的`__exit__()`方法会被自动调用，无论出错与否。保证正确关闭句柄、结束会话等。
 
 ```python
 with open("./result.txt", "w+", encoding="utf-8") as fp:
