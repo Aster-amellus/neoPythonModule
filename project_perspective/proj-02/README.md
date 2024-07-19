@@ -22,5 +22,5 @@ Simple Video Downloader for Bilibili
 
 之后我们就可以更方便地使用B站的API了。
 
-查阅BAC，得到[获取视频详情](https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/video/info.md)和[获取视频流](https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/video/videostream_url.md)的API，将它们封装成函数，保存到`biliapis.py`中。
+查阅BAC，得到[获取视频详情](https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/video/info.md)和[获取视频流](https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/video/videostream_url.md)的API，将它们封装成函数，保存为`biliapis.py`。
 
