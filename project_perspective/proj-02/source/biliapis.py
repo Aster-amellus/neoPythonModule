@@ -68,7 +68,7 @@ def _cbreturncode(func):
     return bilichecker
 
 
-__NOTES_DECOPUZZLE_ANSW = """
+__NOTES_DECOPUZZLE_ANSW = """(Notes中的问题的答案)
 这个最简单的装饰器：
 其中用来包裹原始函数的函数会覆盖原始函数的名字、`docstring`等信息
 以及什么都不管就悄咪咪地做无延时的无限重试，怎么想都会有问题罢

@@ -58,32 +58,7 @@ Python中的字符串使用单双引号定义皆可。
 
 ## 装饰器
 
-### 函数装饰器
-
-装饰器`Decorator`能在函数执行前/后进行一些额外的操作（比如做日志、检查资源可用性、释放资源等），而不用对函数本身做修改。除开编写装饰器函数，只需要在函数定义前用`@`符跟上装饰器函数，就能轻松装饰一个函数，很帅！
-
-它的参数是一个函数，返回值也是一个函数。作为参数的原始函数被包裹在返回的新函数中，替代原位置的原始函数定义。
-
-装饰器函数大概是一个闭包工厂，产出的闭包中不仅包含原始函数的，还包含装饰器函数中定义的代码和变量。
-
-一个简单的例子如下，实现了一个**最简单的**重试装饰器：
-```python
-def retry(func):
-    def wrapped(*args, **kwargs):
-        while True:
-            try:
-                return func(*args, **kwargs)  # <- 原始函数在这里！
-            except Exception as e:
-                pass
-    return wrapped
-```
-> 试着找出这个装饰器的不足之处（答案藏在本节某处喵）！再将它与第三方库[`retry`](https://pypi.org/project/retry/)中成熟的`retry`装饰器做做对比，看看它是怎么做的。
-
-包括装饰器在内的，返回值为函数或参数含有函数的函数，被称作高阶函数。Python中有个专门的标准库对它提供支持：[functools](https://docs.python.org/zh-cn/3/library/functools.html)
-
-### 类装饰器
-
-
+此部分参见 [Decorator Playground](./decorator_playground.ipynb)
 
 ## 高级参数操作
 
