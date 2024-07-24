@@ -11,4 +11,4 @@
 下面是已有的文档（未选中的复选框表示未完成）：
 - [x] [Proj-00 - Hello World](./proj-00/README.md)
 - [x] [Proj-01 - Simple Video Cover Extractor for Bilibili](./proj-01/README.md)
-- [ ] [Proj-02 - Simple Video Downloader for Bilibili](./proj-02/README.md)
+- [x] [Proj-02 - Simple Video Downloader for Bilibili](./proj-02/README.md)

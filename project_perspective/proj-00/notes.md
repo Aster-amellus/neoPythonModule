@@ -60,7 +60,7 @@ py启动器通过环境变量和注册表等方式来找到Python，因此不建
 Hello World
 ```
 
-另一个交互式Python可以使用`pipx`安装`ipython`包后通过命令行`ipython`启动
+另一个增强版的交互式Python可以使用`pipx`安装`ipython`包后通过命令行`ipython`启动
 > 不过`jupyter`包中已经包含了它，请注意覆盖问题
 
 ## 关于pip
