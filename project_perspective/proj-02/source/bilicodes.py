@@ -1,6 +1,6 @@
-'''
+"""
 Original from bilibili-API-collect by @SocialSisterYi
-'''
+"""
 
 video_zone_main = {
     1: "动画",
@@ -135,6 +135,7 @@ video_zone_child = {
 }
 
 video_zone_relation = {  # 主分区与子分区的隶属关系
+    # fmt: off
     1: [24, 25, 47, 210, 86, 27],
     13: [33, 32, 51, 152],
     167: [153, 168, 169, 195, 170],
@@ -156,18 +157,18 @@ video_zone_relation = {  # 主分区与子分区的隶属关系
     177: [37, 178, 179, 180],
     23: [147, 145, 146, 83],
     11: [185, 187],
+    # fmt: on
 }
 
 
 def child_zone_to_main_zone(tid):
     if tid in video_zone_relation:
         return tid
-    else:
-        relation = list(video_zone_relation.items())
-        for mtid, ctids in relation:
-            if tid in ctids:
-                return mtid
-        return 0
+    relation = list(video_zone_relation.items())
+    for mtid, ctids in relation:
+        if tid in ctids:
+            return mtid
+    return 0
 
 
 error_code = {
@@ -245,7 +246,14 @@ stream_dash_video_quality = {
 # 以下划线结尾的表示反查字典
 stream_dash_video_quality_ = {v: k for k, v in stream_dash_video_quality.items()}
 
-stream_dash_audio_quality = {30216: "64K", 30232: "132K", 30280: "192K", 30251: "Flac"}
+stream_dash_audio_quality = {
+    # fmt: off
+    30216: "64K", 
+    30232: "132K", 
+    30280: "192K", 
+    30251: "Flac"
+    # fmt: on
+}
 
 stream_dash_audio_quality_ = {v: k for k, v in stream_dash_audio_quality.items()}
 

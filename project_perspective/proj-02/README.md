@@ -65,6 +65,8 @@ bilicodes.py --> main.py
 
 甚至可以将某些强关联的部分组合成一个类，省去一些不直观的数据传递。但是这种程度的函数应该就够了大概。
 
+完成的代码见[source](./source/)
+
 ## 完成
 
 这样我们就做出了一个最简易的B站视频下载器！恭喜！
@@ -90,6 +92,8 @@ bilicodes.py --> main.py
   > `tkinter`、`PyQt5`，或者别的？
 - 要不……试试多线程？~~（进度跳得太快了kora~~
   > 这时用类做个封装更方便？（大概
+- 让程序能够接收命令行参数？
+  > 使用[`sys.argv`变量](https://docs.python.org/zh-cn/3/library/sys.html#sys.argv)和[`argparse`库](https://docs.python.org/zh-cn/3/library/argparse.html)
 
 不止这些。你还可以想出来更多。
 

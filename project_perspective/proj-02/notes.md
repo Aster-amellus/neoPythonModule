@@ -198,21 +198,121 @@ s: Set[int] = set()  # 表示一个整数集合
 - `TypeAlias`用于标注一个类型别名（它们会被等同处理）
   > e.g.`_Params: TypeAlias = dict[str, str | int | bool]`
   >
-  > 直接赋值也被视为类型别名，在`3.12+`还可以使用`type`语句（略去）
+  > 不做标注直接赋值也被视为类型别名，在`3.12+`还可以使用`type`语句（此处略去）
 - `NewType`用于从一个类型创建新的类型（检查器会将它们当成两个不同的类型）
   > e.g.`A = NewType("A", int)`
 
 更多信息参见[官方文档](https://docs.python.org/zh-cn/3/library/typing.html)
 
-> 类型检查的工作完全由第三方检查器负责，Python解释器会忽略掉这些内容。添加类型标注只是为了使你的编写更加顺畅优雅，当它们无法满足你的要求时，你随时可以将它们放下。
+> 类型检查的工作完全由第三方检查器负责，Python解释器会忽略掉这些内容。添加类型标注只是为了使你的编写更加顺畅优雅，但并不是必须的。
 
 ## 判断「相等」
 
 判断相等我们最常用到的是`==`，但有时又会在一些地方看到`is`，怎么秽蚀呢
 
-*TBD...*
+`==`检查的是对象的值，而`is`检查的是「身份」（内存地址是否相同 / 是否是同一个对象）。就是这样。
+
+```python
+>>> a = [1]
+>>> b = a
+>>> a == b, a is b
+(True, True)
+>>> b = a.copy()
+>>> a == b, a is b
+(True, False)
+```
+
+> 对于小整数、字符串这样的简单对象，`==`和`is`的行为可能会表现得一致（内部优化导致的）。这是一个常见的导致误解的现象，需要注意。
+
+比较特别地，判断一个变量是否是`None`，一般推荐使用`is`。因为：
+
+- `None`是一个单例对象，在内存中只有一个实例，用`is`更「Pythonic」。
+- `==`操作可以被重载（`__eq__`），使用`is`更准确、高效。
+
+判断一个对象是否为`None`主要用在默认参数、检查初始化等地方。
+
+> 要检查某个实例是否是由某个类（或它的子类）实例化产生的，可以使用[`isinstance()`](https://docs.python.org/zh-cn/3/library/functions.html#isinstance)
 
 ## 解包赋值
 
-*TBD...*
+有的时候可以见到像这样的赋值方式：
 
+```python
+>>> a, b = (0, 1)
+>>> a
+0
+>>> b
+1
+```
+
+这样的，在等号左边有多个变量，右边是一个包含相同数量元素的序列的赋值操作，叫做「解包赋值」。它会将序列中的元素按照顺序赋值到左边的变量上。
+
+类似地，在很多地方也能看到这样的`for`循环：
+```python
+d: dict = {}
+for k, v in d.items():
+    ...
+```
+叫做「迭代解包」，原理跟解包赋值其实差不多。
+
+在上面的这个例子中，`dict.items()`方法返回一个包含了每一对键值的`dict_items`对象，其中每对键值以一个二元元组的形式存在。使用`for`将每个元组迭代出来，再用两个变量`k` `v`去解包这个元组，等价于：
+
+```python
+d: dict = {}
+for pair in d.items():
+    k, v = pair
+    ...
+```
+
+这种方法使得处理字典变得非常方便和直观。
+
+另一个例子是[`os.walk()`](https://docs.python.org/zh-cn/3/library/os.html#os.walk)的使用。可以自行前往了解。
+
+## 推导式
+
+推导式是一种强大且简洁的语法，适用于生成列表、字典、集合和生成器。
+
+参见 [官方文档-生成器表达式](https://docs.python.org/zh-cn/3/reference/expressions.html#generator-expressions)、[官方文档-列表推导式](https://docs.python.org/zh-cn/3/tutorial/datastructures.html#list-comprehensions)
+
+> 生成器表达式有时又被叫做元组推导式，因为它使用和元组一样的圆括号。但其实不存在元组推导式这个概念。但生成器表达式的语法与推导式的完全一致，因此就放在一起了。
+
+推导式的括号内包含以下内容：一个初始表达式，后面为一个 `for` 子句，然后是零个或多个 `for` 或 `if` 子句。推导式中的初始表达式甚至可以是另一个推导式。
+
+结果是由表达式依据 `for` 和 `if` 子句求值计算而得出一个新容器对象。（生成器表达式则是产生一个生成器，在对它迭代时才惰性地生成值）
+
+一个拥有最简单的结构的列表推导式像这样：
+
+```python
+# 生成由 0~9 中的每个数的平方组成的列表
+#  推导式起始               推导式终止
+#    v                       v
+sq = [x**2 for x in range(10)]
+#     ^^^^ ~~~~~~~~~~~~~~~~~~
+#   表达式   for子句
+```
+
+对于集合推导式、集合推导式和生成器表达式，只需将圆括号换成对应种类的括号。
+
+特别地，对于字典推导式，表达式部分应当由冒号`:`分成两个部分，分别代表键与值。同样一个简单的例子如下：
+
+```python
+d: dict = {}
+# 生成将字典d的键值对调形成的反转字典
+#  推导式起始                 推导式终止
+#    v                          v
+d_ = {v: k for k, v in d.items()}
+#     ^^^^ ~~~~~~~~~~~~~~~~~~~~~
+#   表达式      for子句
+```
+
+去[官方文档](https://docs.python.org/zh-cn/3/tutorial/datastructures.html#list-comprehensions)看看更复杂的推导式吧，虽然不一定用得到就是了。
+
+## 内置函数
+
+参见[官方文档-内置函数](https://docs.python.org/zh-cn/3/library/functions.html#built-in-functions)，也可以在[菜鸟教程](https://www.runoob.com/python3/python3-built-in-functions.html)做简单查阅。
+
+## UNIX时间戳
+
+自 `1970-01-01 00:00:00 UTC`以来的（毫）秒数。在Python中可使用`time.time()`获取。
+
+更多关于时间的操作见[官方文档-time](https://docs.python.org/zh-cn/3/library/time.html#module-time)、[官方文档-datetime](https://docs.python.org/zh-cn/3/library/datetime.html#module-datetime)、[官方文档-timeit](https://docs.python.org/zh-cn/3/library/timeit.html#module-timeit)等。
