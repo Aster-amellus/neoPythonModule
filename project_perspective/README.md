@@ -12,6 +12,7 @@
 - [x] [Proj-00 - Hello World](./proj-00/README.md)
 - [x] [Proj-01 - Simple Video Cover Extractor for Bilibili](./proj-01/README.md)
 - [x] [Proj-02 - Simple Video Downloader for Bilibili](./proj-02/README.md)
+- [x] [Proj-03 - Simple Lyrics Downloader for Netease Cloudmusic](./proj-03/README.md)
 - [ ] *Under consideration...*
 
 ---

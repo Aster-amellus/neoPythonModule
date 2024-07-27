@@ -92,3 +92,15 @@ import语句顺序检查与自动排序工具。
 ## 关于`colorama`库
 
 这是一个跨平台的终端文字着色库，用起来挺简单的。去[PyPI](https://pypi.org/project/colorama/)看看？
+
+## 关于音乐的元数据
+
+元数据`metadata`是描述数据的数据。那么音乐的元数据就是描述音乐的信息、特征的数据，像采样率、位深度、比特率、标题、作曲家、专辑、流派、音轨号等等。有很多人为赋予它的信息需要额外地存储到音频文件中，就产生了音频文件标签`tag`。类似地，其他地方也有类似的用来存放此类信息的机制。参见[Tag (metadata)](https://en.wikipedia.org/wiki/Tag_(metadata))。
+
+在[Exif Tools](https://exiftool.org/TagNames/)这个网站上可以进行一些简单的字段的查阅，此外借助搜索引擎也能找到很多内容。比如ID3格式的标签也可以参见[ID3 on Wiki](https://en.wikipedia.org/wiki/ID3)。
+
+正文中提到了[`mutagen`](https://mutagen.readthedocs.io/en/latest/) [`tinytag`](https://github.com/tinytag/tinytag)等Python库，能够读取音频文件标签。此外还有一些通用的命令行工具也可以，比如[`ffprobe`](https://ffmpeg.org/ffprobe.html)。
+
+## 网络相关
+
+给我去读 [MDN Docs](https://developer.mozilla.org/zh-CN/)
