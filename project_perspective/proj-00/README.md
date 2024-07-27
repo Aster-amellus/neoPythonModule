@@ -138,31 +138,42 @@ Hell Word (x)
 
 只要能在任意位置的终端直接调用py启动器，或者python解释器，那**最基本的**Python扩展就是即装即用的。
 
-> 像 `Jupyter`、`Mypy` 之类的需要额外[配下环境](./notes.md#关于某些vscode扩展的依赖)
-
 安装完中文语言包之后就可以愉快地逛扩展商店了。  
 
-下面仅给出我安装的与Python有关的扩展列表（打勾的是必装）
+下面仅给出一部分与Python有关的扩展列表（打勾的是必装）
 
 - [x] Python
-  
   > 核心扩展，下面俩都是它的依赖项，会自动安装。
 - [x] Python Debugger
+  > 字面意思，用于Python的调试器
 - [x] Pylance
+  > 与VSCode集成的自动补全、类型检查和错误检测扩展
 - [ ] Black Formatter
-  > 强大，但是稍显「固执」的格式化工具
+  > 代码**自动格式化**工具`Black`的扩展
 - [ ] Pylint
-  > 广泛使用且备受推崇的代码静态分析工具
-- [ ] Mypy
-  > 广泛使用且备受推崇的静态类型检查器
+  > 代码**静态分析**工具`Pylint`的扩展
+- [ ] Mypy Type Checker
+  > 代码**类型检查**工具`Mypy`的扩展
+- [ ] Flake8
+  > 代码**风格检查**工具`Flake8`的扩展
+- [ ] isort
+  > import语句自动排序工具`isort`的扩展
 - [ ] Jupyter
-  > 是扩展包，含有多个扩展，提供Jupyter支持
+  > 是一个扩展包，含有多个扩展，提供Jupyter支持
+- [ ] Python Extension Pack
+  > 是一个扩展包，包含了一些不错的扩展，可以考虑
 
 > Code Runner?
 >
 > 很遗憾，尽管它确实是一个强大的用于快速运行程序的扩展，但它与特定语言的耦合性还是较差。比如对于Python来说，它就没有办法做到逐行调试。总之这里并不建议使用 Code Runner。
 >
 > ~~你猜它为什么只是Runner（x）~~
+
+有关`Black` `Pylint` `Mypy` `Flake8` `isort`的更多信息，参见[Proj-03的补注](../proj-03/notes.md#一些工具的介绍)。
+
+多逛逛扩展商店，说不定能发现很多好用的扩展w
+
+> 记得留意最后更新日期，太过久远的还是在安装之前再考虑一下吧ww
 
 ## 开始喵
 
