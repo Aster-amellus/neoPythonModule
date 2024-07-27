@@ -1,10 +1,11 @@
-'''
+"""
 Original from 
 
 https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/misc/sign/wbi.md#python 
 
 , Reorganized.
-'''
+"""
+
 from functools import reduce
 from hashlib import md5
 import urllib.parse
@@ -16,12 +17,15 @@ import requests
 
 __all__ = ["CachedWbiManager", "sign", "get_wbi_keys"]
 
+# fmt: off
 MIXINKEY_ENC_TABLE = [
     46, 47, 18, 2, 53, 8, 23, 32, 15, 50, 10, 31, 58, 3, 45, 35, 27, 43, 5, 49,
     33, 9, 42, 19, 29, 28, 14, 39, 12, 38, 41, 13, 37, 48, 7, 16, 24, 55, 40,
     61, 26, 17, 0, 1, 60, 51, 30, 4, 22, 25, 54, 21, 56, 59, 6, 63, 57, 62, 11,
     36, 20, 34, 44, 52
 ]
+# fmt: on
+
 
 class CachedWbiManager:
     def __init__(self) -> None:
@@ -88,9 +92,8 @@ def get_wbi_keys() -> tuple[str, str]:
     sub_key = sub_url.rsplit("/", 1)[1].split(".")[0]
     return img_key, sub_key
 
+
 if __name__ == "__main__":
     manager = CachedWbiManager()
-    signed_params = manager.sign(
-        params={"foo": "114", "bar": "514", "baz": 1919810}
-    )
+    signed_params = manager.sign(params={"foo": "114", "bar": "514", "baz": 1919810})
     print(signed_params)
