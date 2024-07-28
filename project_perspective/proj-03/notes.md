@@ -157,6 +157,8 @@ def fibonacci_generator(limit):
     return 'End'
 ```
 
+> 别忘了函数执行到末尾时还有个默认的`return None`
+
 生成器的基本使用方法与迭代器一致，可以直接使用`for`，也可以用循环加上`try ... except StopIteration`。后者可以得到生成器`return`的值。
 
 ```python
@@ -164,11 +166,11 @@ for i in fibonacci_generator(10):
     print(i)
 ```
 
-此外生成器对象还有一个`close()`方法，能够终止生成器的执行。具体效果是在生成器内部对应的`yield`处引发`GeneratorExit`异常，生成器内部可以捕捉它并做进一步处理。如果不做处理异常会传递到外界。
+此外生成器对象还有一个`close()`方法，能够终止生成器的执行。具体效果是在生成器内部对应的`yield`处引发`GeneratorExit`异常，生成器内部可以捕捉它并做进一步处理。不过这个异常一般不会传递到外界。
 
 在生成器内部可以使用`yield from ...`语句从另一个生成器提取值并产出（转移控制权到另一个生成器），实现简单的生成器嵌套。
 
-此外使用生成器的`send`方法还可以向生成器传递值，在生成器内部这个值将会成为`yield`语句的返回值，这是协程的原始形态。
+此外使用生成器的`send`方法还可以向生成器传递值，在生成器内部这个值将会成为`yield`语句的返回值。这是协程的原始形态。
 
 ```python
 >>> def generator_with_send():
@@ -191,6 +193,7 @@ StopIteration
 
 更多信息参见 [官方文档-yield表达式](https://docs.python.org/zh-cn/3/reference/expressions.html#yield-expressions)，以官方文档为准
 
+<!----
 ## 抽象基类
 
 这部分真的很让人头疼ww，但也不是必须要学的内容大概？总之先扔个官方文档在这里，感兴趣的话也可以上网搜索一下。我先润了……
@@ -198,4 +201,4 @@ StopIteration
 官方文档 - [抽象基类](https://docs.python.org/zh-cn/3/library/abc.html#module-abc) & [容器的抽象基类](https://docs.python.org/zh-cn/3/library/collections.abc.html)
 
 *TBD...*
-
+---->
