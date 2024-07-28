@@ -99,8 +99,101 @@ import语句顺序检查与自动排序工具。
 
 在[Exif Tools](https://exiftool.org/TagNames/)这个网站上可以进行一些简单的字段的查阅，此外借助搜索引擎也能找到很多内容。比如ID3格式的标签也可以参见[ID3 on Wiki](https://en.wikipedia.org/wiki/ID3)。
 
-正文中提到了[`mutagen`](https://mutagen.readthedocs.io/en/latest/) [`tinytag`](https://github.com/tinytag/tinytag)等Python库，能够读取音频文件标签。此外还有一些通用的命令行工具也可以，比如[`ffprobe`](https://ffmpeg.org/ffprobe.html)。
+正文中提到了[`mutagen`](https://mutagen.readthedocs.io/en/latest/) [`tinytag`](https://github.com/tinytag/tinytag)等Python库，它们能够读取音频文件标签。此外还有一些通用的命令行工具也可以，比如[`ffprobe`](https://ffmpeg.org/ffprobe.html)。
 
 ## 网络相关
 
 给我去读 [MDN Docs](https://developer.mozilla.org/zh-CN/)
+
+## 迭代器
+
+迭代器使用`__next__()`方法（对于外界则是`next(iterator)`）来得到下一个元素，并使用`StopIteration`异常来表示迭代终止，可以用`for`来自动提取元素。
+
+对于一个标准的迭代器类，至少需要实现`__next__()`方法和`__iter__()`方法来组成迭代器协议，像这样。
+
+```python
+class MyIterator:
+    def __init__(self, data):
+        self.data = data
+        self.index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index < len(self.data):
+            result = self.data[self.index]
+            self.index += 1
+            return result
+        else:
+            raise StopIteration
+```
+
+或者用内置函数`iter()`来从一个可迭代对象创建一个迭代器。
+
+更多信息参见 [官方文档-迭代器类型](https://docs.python.org/zh-cn/3/library/stdtypes.html#typeiter)，以官方文档为准
+
+## 生成器
+
+生成器是一种特殊的迭代器。在一个函数中使用`yield`来将它变为生成器函数。最简单的一个生成器函数像这样：
+
+```python
+# 用于生成斐波那契数列
+def fibonacci_generator():
+    a, b = 0, 1
+    while True:
+        yield a
+        a, b = b, a + b
+```
+
+此时函数的`return`语句将会引发`StopIteration`异常。跟在`return`后面的值会储存在异常对象的`value`属性中，也可以通过生成器的`close()`方法来得到它。上面的这个例子会无限产生值，对它加以改写得到：
+
+```python
+def fibonacci_generator(limit):
+    a, b = 0, 1
+    while a < limit:
+        yield a
+        a, b = b, a + b
+    return 'End'
+```
+
+生成器的基本使用方法与迭代器一致，可以直接使用`for`，也可以用循环加上`try ... except StopIteration`。后者可以得到生成器`return`的值。
+
+```python
+for i in fibonacci_generator(10):
+    print(i)
+```
+
+此外生成器对象还有一个`close()`方法，能够终止生成器的执行。具体效果是在生成器内部对应的`yield`处引发`GeneratorExit`异常，生成器内部可以捕捉它并做进一步处理。如果不做处理异常会传递到外界。
+
+在生成器内部可以使用`yield from ...`语句从另一个生成器提取值并产出（转移控制权到另一个生成器），实现简单的生成器嵌套。
+
+此外使用生成器的`send`方法还可以向生成器传递值，在生成器内部这个值将会成为`yield`语句的返回值，这是协程的原始形态。
+
+```python
+>>> def generator_with_send():
+...     value = yield
+...     print(f'Received: {value}')
+...     value = yield value * 2
+...     print(f'Received: {value}')
+...
+>>> gen = generator_with_send()
+>>> next(gen)
+>>> gen.send(10)
+Received: 10
+20
+>>> gen.send(20)
+Received: 20
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+```
+
+更多信息参见 [官方文档-yield表达式](https://docs.python.org/zh-cn/3/reference/expressions.html#yield-expressions)，以官方文档为准
+
+## 抽象基类
+
+这部分真的很让人头疼，先扔个[官方文档](https://docs.python.org/zh-cn/3/library/collections.abc.html)在这里，我先润了……
+
+*TBD...*
+
