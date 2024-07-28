@@ -193,7 +193,9 @@ StopIteration
 
 ## 抽象基类
 
-这部分真的很让人头疼，先扔个[官方文档](https://docs.python.org/zh-cn/3/library/collections.abc.html)在这里，我先润了……
+这部分真的很让人头疼ww，但也不是必须要学的内容大概？总之先扔个官方文档在这里，感兴趣的话也可以上网搜索一下。我先润了……
+
+官方文档 - [抽象基类](https://docs.python.org/zh-cn/3/library/abc.html#module-abc) & [容器的抽象基类](https://docs.python.org/zh-cn/3/library/collections.abc.html)
 
 *TBD...*
 
