@@ -65,7 +65,7 @@ Hello World
 
 ## 关于pip
 
-一般用来安装Python的第三方库。
+Python的包管理器。一般用来安装Python的第三方库。
 
 就像Linux的包管理器那样，从中国大陆地区直接访问官方源会有些吃力，推荐[换源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)。
 
@@ -81,17 +81,24 @@ Hello World
 
 ### 安装pipx
 
-在全局环境中使用`pipx`安装`pipx`自己
+在全局环境中安装`pipx`
+
+```powershell
+pip install pipx
+```
+确保没有处于虚拟环境中。
 
 > 先允许我们在全局环境中拉依托，之后会清理掉。
 
-确保没有处于虚拟环境中，然后在终端中执行：
+再使用全局环境中的`pipx`在`pipx`的隔离环境中安装`pipx`。
 
 ```powershell
 pipx install pipx
 ```
 
 ### 清理全局环境
+
+现在可以清理掉全局环境中的`pipx`及其依赖了。
 
 先导出已安装的包
 
@@ -110,7 +117,7 @@ pip freeze > requirements.txt
 保存后使用`-r`选项卸载所有包。
 
 ```powershell
-pip uninstall -r requirements.txt
+pip uninstall -r requirements.txt -y
 ```
 
 这样一来全局环境就干净了。
