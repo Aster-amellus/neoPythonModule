@@ -3,4 +3,4 @@
 
 ---
 
-CS_intro by Aster, based on the textbook Structure and Interpretation of Computer Programs by Harold Abelson and Gerald Jay Sussman, and Composing Programsis maintained by John DeNero.licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+CS_intro by Aster, based on the textbook Structure and Interpretation of Computer Programs by Harold Abelson and Gerald Jay Sussman, and Composing Programsis maintained by John DeNero.licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License.](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en)
