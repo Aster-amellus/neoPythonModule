@@ -67,7 +67,7 @@ Python中的字符串使用单双引号定义皆可。
 #### 任意数量参数
 
 ```python
-def func(*args: tuple[Any, ...], **kwargs: dict[str, Any]) -> None:
+def func(*args:, **kwargs):
     pass
 ```
 
@@ -75,10 +75,6 @@ def func(*args: tuple[Any, ...], **kwargs: dict[str, Any]) -> None:
 
 在上述例子中，`args`会成为一个元组（包含所有被接收的位置参数），而`kwargs`会成为一个字典（包含所有被接收的关键字参数）。
 
-> 在进行类型标注时，将它们分别标注为元组与字典。
->
-> 对于任意长度的元组，应当使用`...`进行标注。（对于包含多种类型元素的任意长度元组，Python中无法直接表示，需要配合`Union`或`Any`食用）
-> 
 > `kwargs`的键的类型一定为`str`
 
 这种接收任意数量的参数只是习惯性地被分别命名为`args`和`kwargs`，可以根据实际情况调整。
