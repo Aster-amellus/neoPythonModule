@@ -61,6 +61,8 @@ for Proj-03
 
 在参数中添加`--disable=<具体条目或类型>`来禁用某些检查（以逗号分隔）。
 
+也可以使用注释`# pylint: disable=<具体条目或类型>`，可以位于单行或文件顶部。也可以像`Black`那样用`enable`和`disable`包括一个代码片段。
+
 可在Pylint的[官方文档](https://pylint.readthedocs.io/en/stable/user_guide/messages/messages_overview.html)中查阅所有条目。
 
 > 例如：`--disable=C,R,line-too-long,W4903`
