@@ -194,7 +194,7 @@ thread.resume() # 将event取消设置
 ...
 ```
 
-同理，可以通过类似的方法实现取消下载，只是阻塞变成了直接return而已。
+同理，可以通过类似的方法实现取消下载，只是阻塞（`event.wait()`）变成了直接return（`if event.is_set(): return`）而已。
 
 ### 多线程下载器(选)
 
