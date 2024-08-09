@@ -301,3 +301,67 @@ with open("./result.txt", "w+", encoding="utf-8") as fp:
 ```
 
 > `requests`中的请求也可以用噢，看看[本节的项目代码](./source.py)？
+
+## 格式化字符串
+
+格式化字符串是指将变量或表达式的值嵌入到字符串中的一种方法，各个编程语言都有各自的格式化字符串方法。对于Python，[官方文档](https://docs.python.org/zh-cn/3/tutorial/inputoutput.html)中列举有四种，选择适合的即可。
+
+### f-string
+
+通过在以`f""`包括的字符串中使用`{expression}`来嵌入值，在表达式后紧接`:` `!` `=`等格式说明符可以指定格式。重复的花括号可以得到花括号本身。详见官方文档。
+
+```python
+>>> a = 11.4514
+>>> f"{a}" 
+'11.4514'
+>>> f"ww{a:08.2f}" # 格式化
+'ww00011.45'
+>>> f"{a=}" # 自说明
+'a=11.4514'
+>>> f"{int!r}" # 转换
+"<class 'int'>"
+>>> f"}}{a}{{" # 花括号转义
+'}11.4514{'
+```
+
+### format
+
+`format()`是字符串对象的一个方法[^1]。同样通过花括号发挥效用。在格式说明符`:` `!`上的语法与`f-string`相同，但其余部分略有不同。
+
+[^1]: 同时也是一个内置函数，若感兴趣可以自行查阅[文档](https://docs.python.org/zh-cn/3/library/functions.html#format)。
+
+```python
+>>> a = 11.4514
+>>> "{}".format(a)  
+'11.4514'
+>>> "{=}".format(a)  # 没有`=`说明符
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: '='
+>>> "{:08.2f}".format(a)
+'00011.45'
+>>> b = 191.981  
+>>> "{1:.2f} {0:.3f}".format(a, b)  # 指定位置
+'191.98 11.451'
+>>> "{b:.2f} {a:.3f}".format(a=a, b=b)  # 指定关键字
+'191.98 11.451'
+```
+
+这意味着你可以在`format`方法中使用参数解包等很帅的操作 —— cool！
+
+更多信息参见[官方文档](https://docs.python.org/zh-cn/3/tutorial/inputoutput.html#the-string-format-method)
+
+### 旧式格式化
+
+Python支持通过在字符串后紧跟`%`符进行格式化。当只有一个值时括号可省。
+
+又被称作`printf`风格格式化，详见[官方文档](https://docs.python.org/zh-cn/3/library/stdtypes.html#old-string-formatting)。C语言中的相关内容参见 [cppreference](https://zh.cppreference.com/w/cpp/header/cstdio)。
+
+```python
+>>> "%.2f" % (a)
+'11.45'
+```
+
+### 手动格式化
+
+详见[官方文档](https://docs.python.org/zh-cn/3/tutorial/inputoutput.html#manual-string-formatting)
