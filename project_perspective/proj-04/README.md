@@ -4,9 +4,11 @@ SimpleBiliToolbox
 
 > 简易B站工具箱
 
+成品(?)参见 [BiliTools-Remake](https://github.com/NingmengLemon/BiliTools-Remake)
+
 *Still Under Building...*
 
-我~~们~~终于决定要编写一个多功能的B站工具箱了。
+我~~们~~终于决定要编写一个多功能的B站工具箱了（其实主要还是下载）。
 
 在规划中，这个程序分为三层 —— 接口层、核心层、UI层。
 
@@ -237,7 +239,7 @@ B站的内容ID们除了BV号以外都是纯数字，可以轻易地写出正则
 
 #### 视频
 
-按照上个Proj，将流程复刻一遍。
+按照[Proj-02](../proj-02/README.md)，将流程复刻一遍。
 
 除直接下载视频外，还可以提供仅下载视频音轨的选项。额外添加下载字幕的选项。
 
