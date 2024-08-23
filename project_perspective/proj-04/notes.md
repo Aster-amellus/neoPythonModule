@@ -125,3 +125,49 @@ class VideoWorker(threading.Thread, ...):
 ~~懒得喷~~
 
 </details>
+
+## tqdm库
+
+[`tqdm`](https://github.com/tqdm/tqdm)库是一个智能的进度条库，主要用于在终端上显示进度条。
+
+最基础的使用方法是直接在 for 循环的 iterable 对象外面套一个`tqdm()`（将被迭代对象作为`tqdm`对象实例化的第一个参数），循环的进度就能随着对象的迭代被打印出来：
+
+```py
+import time
+
+from tqdm import tqdm  # 惯例写法
+
+text = ""
+for char in tqdm(["a", "b", "c", "d"]):
+    time.sleep(0.25)
+    text = text + char
+```
+
+当然也可以在实例化时传入更多参数，比如描述文本(`desc`)、总进度(`total`)、结束后是否将进度条保留在屏幕上(`leave`)、进度的单位(`unit`)、是否禁用(`disable`)、存在多个进度条时在屏幕上的位置(`position`) 等等。
+
+当然也可以手动更新进度，这样的做法更常用于下载。这时又可以使用`with`语句：
+
+```py
+import requests
+from tqdm import tqdm
+
+def download_file(url, filename):
+    # 一个最简的带进度条的分块下载实现
+    response = requests.head(url)
+    file_size = int(response.headers.get('content-length', 0))
+
+    with requests.get(url, stream=True) as r, open(filename, 'wb') as file:
+        with tqdm(total=file_size, unit='B', unit_scale=True, desc=filename) as pbar:
+            for chunk in r.iter_content(chunk_size=1024):
+                if chunk:  # 空块用于保持连接
+                    file.write(chunk)
+                    pbar.update(len(chunk))
+```
+
+更底层一些，通过手动为`tqdm`实例的 `n` `total` `desc` 等属性设置值，可以任意动态改变进度条的状态；此外使用 `refresh()` 方法也可以强制刷新进度条的显示。
+
+此外 `tqdm` 还能作为 CLI 应用程序被直接命令行调用，接收管道数据并显示进度条；还能使用 `matplotlib` 图形化地展示进度；还能用于异步任务和多进程任务；还与 `pandas` `jupyter` `dask` 等第三方库有非常良好的集成 —— 参见官方文档！
+
+## 高阶类型标注
+
+*TBD...*
