@@ -44,7 +44,7 @@ python -m venv ./.venv
 
 > 你也可以尝试只用Python标准库实现这个项目，这是可以做到的！
 
-## 关于基础语法
+## 关于语法
 
 <!----
 > *Python很容易入门，语法限制也很少。但这不意味着它很简单，更不意味着它很随便。*
@@ -55,6 +55,22 @@ python -m venv ./.venv
 > 这里仅尝试讲解正文中使用到的。
 >
 > 快去看[官方文档](https://docs.python.org/zh-cn/3/reference/index.html)
+
+### 注释
+
+Python中使用`#`符进行注释，在当前行中非字符串内容的`#`及其后的内容都会被当成注释。
+
+有时能在一些文件看到以`#!`开头的首行注释，这被称作Shebang。
+
+> Shebang这一语法特性由`#!`开头。在开头字符之后，可以有一个或数个空白字符，后接解释器的绝对路径，用于调用解释器。在直接调用脚本时，调用者会利用Shebang提供的信息调用相应的解释器，从而使得脚本文件的调用方式与普通的可执行文件类似。[^1]
+
+[^1]: 引自Wikipedia，https://zh.wikipedia.org/wiki/Shebang
+
+你说得对 ☝️🤓，但是`'''`，即连续的三个引号包围的内容不是注释，而是多行字符串。它也常被用在[docstring](https://peps.python.org/pep-0257/)中。
+
+### 控制流
+
+参见 [Grammar_playground](./grammar_playground.ipynb)
 
 ### 导入模块
 
@@ -84,16 +100,17 @@ from ..module_a import func
 ```
 > 向上超过当前文件所在路径的相对导入是不推荐的，[PEP 8](https://peps.python.org/pep-0008/#imports) 说的。
 
-关于机制细节，Python会按顺序搜索`sys.path`列表中的每个目录，查找与模块名匹配的文件。
+关于机制，Python会按顺序搜索`sys.path`列表中的每个目录，查找与模块名匹配的文件。
 
-> `sys.path`默认包括：
-> - 当前文件所在目录
-> - `%PYTHONPATH%`环境变量指定的目录
-> - 标准库目录，通常是`python/Lib`
-> - 安装的第三方包的目录，通常是`python/Lib/site-packages`
+`sys.path`默认包括：
+- 当前文件所在目录
+- `%PYTHONPATH%`环境变量指定的目录
+- 标准库目录，通常是`python/Lib`
+- 安装的第三方包的目录，通常是`python/Lib/site-packages`
 
-> 你甚至可以手动为`sys.path`添加路径，让它去额外的目录找模块
-> ——但是不推荐就是了
+> 优先级：当前目录 -> site-packages -> 内置模块
+
+你可以手动为`sys.path`添加路径，让它去额外的目录找模块；也可以自定义模块加载的各个步骤，总之就是自由度十分~~甚至九分~~地高。
 
 更多内容参见[官方文档](https://docs.python.org/zh-cn/3/reference/simple_stmts.html#import)，或者问AI去
 
@@ -202,7 +219,7 @@ finally:
 
 > 关于裸`except:`
 >
-> 等价于`except BaseException:`，可以捕获**所有**异常，包括系统退出和中断的异常，像 `SystemExit`、`KeyboardInterrupt` 和 `GeneratorExit`。因为捕获得太多了而且语义不明确所以不建议使用。
+> 等价于`except BaseException:`，可以捕获**所有**异常，包括系统退出和中断的异常，像 `SystemExit`、`KeyboardInterrupt` 和 `GeneratorExit`。因为经常会捕获到不该捕获的东西，语义不明确所以不建议使用。
 >
 > 一般日常建议使用`except Exception:`。就算你真的想捕获系统级异常，也应该使用`except BaseException:`进行平替，因为它的语义更明确一些。
 
@@ -293,7 +310,7 @@ Python中的对象分为可变（e.g.列表/字典/集合）和不可变（e.g.�
 
 对于带有上下文管理器的对象，可以使用`with`来进行上下文管理。
 
-离开`with`语句块时，对象的`__exit__()`方法会被自动调用，无论出错与否。保证能够正确关闭句柄、结束会话等。
+进入`with`语句块时，对象的`__enter__()`方法会被自动调用；离开时，对象的`__exit__()`方法也会被自动调用，无论出错与否。保证能够正确关闭句柄、结束会话等。
 
 ```python
 with open("./result.txt", "w+", encoding="utf-8") as fp:
